@@ -10,7 +10,7 @@ workspace = r'C:\Computation\CUNI\01_ZS1\GINFO\cviceni\cv5_GINFO\\'
 results_folder = r'C:\Computation\CUNI\01_ZS1\GINFO\cviceni\cv5_GINFO\results\\'
 
 # input data
-roads_osm_file = r'data\OSM\drop.gpkg'
+roads_osm_file = r'data\OSM\example.gpkg.gpkg'
 cities_file = r'data\okresy_ARCCR\Obce_Data200\MSK_Obce_Data200.gpkg'
 regions_file = r'data\okresy_ARCCR\Okresy_ArcCR500\MSK_Okresy.gpkg'
 
