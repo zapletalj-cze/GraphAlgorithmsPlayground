@@ -78,7 +78,7 @@ This section presents selected results from testing the final version of the scr
 ![Fastest route comparison, Hnojník-Paskov](images/Hnojník_Paskov_fastest_comparison.png)
 
 ##  Solution for Negatively Weighted Graphs
-For graphs where edge weights are <= 0, a weight adjustment was applied to ensure that no weight between nodes exceeds 0. An automatic adjustment of weights is applied, ensuring compatibility with the Dijkstra algorithm.
+For graphs where edge weights are <= 0, a weight adjustment was applied to ensure that all weight between nodes exceeds 0. An automatic adjustment of weights is applied, ensuring compatibility with the Dijkstra algorithm.
 
 ## Point to point accessibility 
 To determine accessibility between all points and the sum of weights between them, the Floyd-Warshall algorithm has been implemented. The output is an Origin-Destination (OD) matrix in CSV format.
