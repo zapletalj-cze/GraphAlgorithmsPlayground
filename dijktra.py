@@ -2,7 +2,28 @@ import math
 import queue
 
 
+def convert_graph_to_positive(graph):
+    min_value = float('inf')
+    # find min value
+    for outer_key, inner_dict in graph.items():
+        for value in inner_dict.values():
+            min_value = min(min_value, value)
+
+    # calculate necessary values shift
+    if min_value <= 0:
+        print(f'Shifting values in graph to be positively weighted.')
+        print(f'Min value in values: {min_value}')
+        adjustment = abs(min_value) + 1
+        # shift values by adjustment
+        for outer_key, inner_dict in graph.items():
+            for inner_key in inner_dict:
+                graph[outer_key][inner_key] += adjustment
+
+    return graph
+
+
 def dijkstra_algorithm(G, u):
+    G = convert_graph_to_positive(G)
     n = len(G)
     # set infinite distance
     d = [math.inf] * (n + 1)
