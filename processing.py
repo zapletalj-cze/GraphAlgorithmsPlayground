@@ -84,6 +84,7 @@ def extract_nodes(gdf_roads):
     """
     :param gdf_roads: GeoDataFrame (geometry type: line)
     """
+    gdf_roads = gdf_roads.explode()
     first_coord = gdf_roads['geometry'].apply(lambda g: g.coords[0])
     last_coord = gdf_roads['geometry'].apply(lambda g: g.coords[-1])
     start_points = gpd.GeoDataFrame(geometry=[Point(coords) for coords in first_coord])
@@ -94,6 +95,7 @@ def extract_nodes(gdf_roads):
     gdf_endpoints = gdf_nodes[gdf_nodes['point_count'] == 1]
     gdf_nodes_cont = gdf_nodes[gdf_nodes['point_count'] == 2]
     gdf_intersections = gdf_nodes[gdf_nodes['point_count'] > 2]
+    warnings.resetwarnings()
     return gdf_endpoints, gdf_nodes_cont, gdf_intersections
 
 
@@ -124,6 +126,8 @@ def refine_road_network(gdf_roads, primary_key):
 
 # method currently in test mode
 def merge_lines_at_continous_nodes(gdf_lines, gdf_points, primary_key):
+    warnings.filterwarnings("ignore")
+    gdf_lines = gdf_lines.explode()
     gdf_lines[['first_x', 'first_y']] = gdf_lines['geometry'].apply(lambda g: pd.Series(g.coords[0]))
     gdf_lines[['last_x', 'last_y']] = gdf_lines['geometry'].apply(lambda g: pd.Series(g.coords[-1]))
     for index, row in gdf_points.iterrows():

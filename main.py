@@ -6,11 +6,11 @@ import floyd_warshall
 import sys
 import pandas as pd
 
-workspace = r'C:\Computation\CUNI\01_ZS1\GINFO\cviceni\cv5_GINFO\\'
+workspace = r'C:\Computation\Scripts\Python\CUNI\GINFO\cv4_GrafoveAlgoritmy_Bayer\ukol\GraphAlgorithmsPlayground\\'
 results_folder = r'C:\Computation\CUNI\01_ZS1\GINFO\cviceni\cv5_GINFO\results\\'
 
 # input data
-roads_osm_file = r'data\OSM\example.gpkg.gpkg'
+roads_osm_file = r'data\OSM\MSK_StreetNetwork_L_subset.gpkg'
 cities_file = r'data\okresy_ARCCR\Obce_Data200\MSK_Obce_Data200.gpkg'
 regions_file = r'data\okresy_ARCCR\Okresy_ArcCR500\MSK_Okresy.gpkg'
 
@@ -20,7 +20,7 @@ weighting_method = 'distance'
 
 # selection based on: https://wiki.openstreetmap.org/wiki/Key:highway
 # roadway = 'motorway', 'trunk', 'motorway_link', 'trunk_link'
-road_types = ['roadway', 'primary']
+road_types = ['roadway', 'primary', 'secondary']
 
 regions_attribute = 'NAZ_LAU1'  # attribute in regions_file used for region selection
 selected_districts = ['Frýdek-Místek']  # list of values from the regions_attribute in regions_file
@@ -28,7 +28,7 @@ selected_districts = ['Frýdek-Místek']  # list of values from the regions_attr
 # OPTIONAL, can be defined later on
 # format [x_start, y_start, x_end, y_end]
 # list of x,y pairs to find the nearest node in a graph to build a path between
-start_end_coordinates = ['308196', '5505752', '309066', '5506684']  # or empty list
+start_end_coordinates = []  # or empty list
 
 
 # ***************** END // INPUTS /// USER PARAMETERS ***************#
@@ -88,7 +88,6 @@ graph, relation_table = processing.build_dict_graph_from_geodataframe(gdf_lines=
                                                                       orientation_attribute='oneway',
                                                                       weights_attribute='weight',
                                                                       line_primary_key='full_id')
-processing.create_temporal_check_file(relation_table)
 # Start and end point as user input
 if not start_end_coordinates:
     start_index, end_index = processing.get_start_end_point_from_user(gdf_cities, gdf_points=relation_table)
@@ -97,21 +96,49 @@ else:
                                                                                   gdf_points=relation_table)
 
 p = dijktra.dijkstra_algorithm(graph, start_index)
-path = dijktra.pathRec(p, start_index, end_index)
 
 # path (node indicies to its primary key)
+path = dijktra.pathRec(p, start_index, end_index)
 path = processing.reverse_list(path)
-if len(path) > 2:
+id_list = processing.translate_path_index_to_pk(path, relation_table)
+
+do_not_use_index_ends = []
+do_not_use_index_stars = []
+geometry_end = relation_table.loc[relation_table['index'] == end_index, 'geometry'].values[0]
+geometry_start = relation_table.loc[relation_table['index'] == start_index, 'geometry'].values[0]
+i = 1
+
+while len(path) <= 2:
+    if i % 2 == 0:
+        print(f'Unable to find a path between points start: {start_index}, end: {end_index}')
+        do_not_use_index_ends.append(end_index)
+        relation_table_filt = relation_table[~relation_table['index'].isin(do_not_use_index_ends)]
+        distances = relation_table_filt['geometry'].distance(geometry_end)
+        end_point_index = distances.idxmin()
+        end_index = end_point_index
+    else:
+        print(f'Unable to find a path between points start: {start_index}, end: {end_index}')
+        do_not_use_index_stars.append(start_index)
+        relation_table_filt = relation_table[~relation_table['index'].isin(do_not_use_index_stars)]
+        distances = relation_table_filt['geometry'].distance(geometry_start)
+        start_point_index = distances.idxmin()
+        start_index = start_point_index
+    i += 1
+
+    path = dijktra.pathRec(p, start_index, end_index)
+    path = processing.reverse_list(path)
     id_list = processing.translate_path_index_to_pk(path, relation_table)
-else:
-    print(f'Path between selected points was not found.')
-    sys.exit()
+
+
+id_list = processing.translate_path_index_to_pk(path, relation_table)
+
+
 
 # convert path to line Geodataframe
 gdf_line = processing.convert_path_to_line(id_list, gdf_roads)
 
 # export results
-gdf_line.to_file(os.path.join(results_folder, 'final_path_dijkstra.gpkg'))
+gdf_line.to_file(os.path.join(results_folder, f'dijkstra_{weighting_method}.gpkg'))
 
 # All pairs shortest path matrix
 distance_matrix = floyd_warshall.floyd_warshall_algorithm(graph)
