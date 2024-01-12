@@ -61,7 +61,7 @@ This section presents selected results from testing the final version of the scr
 ![Shortest distance comparison, Hnojník-Paskov](images/Hnojník_Paskov_distance_comparison.png)
 
 ## Fastest route comparison
-![Fastest route comparison, Ostravice-Mosty u Jablunkova](images/Ostravice_Mosty_fastest_comparison)
-![Fastest route comparison, Hnojník-Paskov](images/Hnojník_Paskov_fastest_comparison)
+![Fastest route comparison, Ostravice-Mosty u Jablunkova](images/Ostravice_Mosty_fastest_comparison.png)
+![Fastest route comparison, Hnojník-Paskov](images/Hnojník_Paskov_fastest_comparison.png)
 
 
