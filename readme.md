@@ -10,6 +10,17 @@ The preprocessing script and algorithms have been tested on the following datase
 -   Vector dataset ARCCR 500 containing districts in the Moravian-Silesian Region.
 -   Dataset DATA200 comprising municipalities in the Moravian-Silesian Region.
 
+# Python libs
+| Library     | Version |
+|-------------|---------|
+| geopandas   | 0.14.0  |
+| pandas      | 2.1.2   |
+| shapely     | 2.0.2   |
+| functools   | -       |
+| warnings    | -       |
+| queue       | -       |
+| math        | -       |
+The script was developed using the specified library versions.
 
 # Data preprocessing
 ## Projection Adjustment
