@@ -5,6 +5,15 @@ Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about St
 
 
 ![no](/images/test.png)
+
+![Screenshot](images/test.png)
+
+![no](/images/test.png)
+
+![screen](images/test.png)
+
+
+![screen](https://github.com/zapletalj-cze/GraphAlgorithmsPlayground/blob/7c5539a72db9ab7a7a3d0f33e41da90208cde304/images/test.png)
 # Files
 
 StackEdit stores your files in your browser, which means all your files are automatically saved locally and are accessible **offline!**
