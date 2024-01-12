@@ -11,6 +11,8 @@ The preprocessing script and algorithms have been tested on the following datase
 -   Dataset DATA200 comprising municipalities in the Moravian-Silesian Region.
 
 # Python libs
+The script was developed using the specified library versions.
+
 | Library     | Version |
 |-------------|---------|
 | geopandas   | 0.14.0  |
@@ -20,7 +22,7 @@ The preprocessing script and algorithms have been tested on the following datase
 | warnings    | -       |
 | queue       | -       |
 | math        | -       |
-The script was developed using the specified library versions.
+
 
 # Data preprocessing
 ## Projection Adjustment
