@@ -50,5 +50,18 @@ To find the shortest path between points, the Dijkstra algorithm is implemented.
 In the last phase, the list of points is transformed using a table back into the original nodes with its Node_ID. By utilizing attributes in the lines (start, end), which identify specific points, the path is reconstructed as a Geodataframe and exported to a Geopackage.
 
 
-# 
+# Solution for discontinous road network
+The automatically generated network is discontinuous, and most points are not reachable from every point. A function has been implemented to find the nearest other point and apply the Dijkstra algorithm. The start and end points are beign replaced in this process.
+
+# Comparison with nav services
+This section presents selected results from testing the final version of the script with various city combinations. For the shortest distance, the Dijkstra algorithm achieved less favorable results due to a less dense road network. However, the results for the shortest time show consistency between the script and navigation services.
+
+## Shortest distance comparison
+![Shortest distance comparison, Ostravice-Mosty u Jablunkova](images/Ostravice_Mosty_distance_comparison.png)
+![Shortest distance comparison, Hnojník-Paskov](images/Hnojník_Paskov_distance_comparison.png)
+
+## Fastest route comparison
+![Fastest route comparison, Ostravice-Mosty u Jablunkova](images/Ostravice_Mosty_fastest_comparison)
+![Fastest route comparison, Hnojník-Paskov](images/Hnojník_Paskov_fastest_comparison)
+
 
