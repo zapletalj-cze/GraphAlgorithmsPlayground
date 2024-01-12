@@ -13,15 +13,15 @@ The preprocessing script and algorithms have been tested on the following datase
 # Python libs
 The script was developed using the specified library versions.
 
-| Library     | Version |
-|-------------|---------|
-| geopandas   | 0.14.0  |
-| pandas      | 2.1.2   |
-| shapely     | 2.0.2   |
-| functools   | -       |
-| warnings    | -       |
-| queue       | -       |
-| math        | -       |
+            | Library     | Version |
+            |-------------|---------|
+            | geopandas   | 0.14.0  |
+            | pandas      | 2.1.2   |
+            | shapely     | 2.0.2   |
+            | functools   | -       |
+            | warnings    | -       |
+            | queue       | -       |
+            | math        | -       |
 
 
 # Data preprocessing
