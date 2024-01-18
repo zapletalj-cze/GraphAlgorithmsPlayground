@@ -16,7 +16,7 @@ regions_file = r'data\okresy_ARCCR\Okresy_ArcCR500\MSK_Okresy.gpkg'
 
 # parameters
 # supports 'distance' (Euclidean), 'time' (based on max-speed/distance), 'time_max_speed_curvature'
-weighting_method = 'distance'
+weighting_method = 'time_max_speed_curvature'
 
 # selection based on: https://wiki.openstreetmap.org/wiki/Key:highway
 # roadway = 'motorway', 'trunk', 'motorway_link', 'trunk_link'

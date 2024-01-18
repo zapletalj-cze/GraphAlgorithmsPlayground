@@ -244,7 +244,7 @@ def calculate_edge_weights(gdf_lines, weighting_method):
 
     if weighting_method == 'time_max_speed':
         if 'maxspeed' in gdf_lines.columns:
-            gdf_lines['time'] = gdf_lines['length'] / gdf_lines['maxspeed']
+            gdf_lines['time'] = (gdf_lines['length']/1000) / gdf_lines['maxspeed']
             gdf_lines.rename(columns={'time': 'weight'}, inplace=True)
         else:
             warnings.warn("Max speed attribute not found in GeoDataFrame, use different weighting method.",
@@ -260,7 +260,7 @@ def calculate_edge_weights(gdf_lines, weighting_method):
         gdf_lines['curvature_c'] = gdf_lines['distance_direct'] / gdf_lines['length']
         gdf_lines['curvature_c'] = gdf_lines['curvature_c'].where(gdf_lines['curvature_c'] >= 0.5, 0.5).where(
             gdf_lines['curvature_c'] <= 0.90, 1)
-        gdf_lines['time'] = gdf_lines['length'] / (gdf_lines['maxspeed'] * gdf_lines['curvature_c'])
+        gdf_lines['time'] = (gdf_lines['length']/1000) / (gdf_lines['maxspeed'] * gdf_lines['curvature_c'])
         gdf_lines.rename(columns={'time': 'weight'}, inplace=True)
     return gdf_lines
 
